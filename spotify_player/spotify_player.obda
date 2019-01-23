@@ -1,0 +1,29 @@
+[PrefixDeclaration]
+:		http://www.semanticweb.org/tema/ontologies/2018/11/spotify-ontology#
+owl:		http://www.w3.org/2002/07/owl#
+rdf:		http://www.w3.org/1999/02/22-rdf-syntax-ns#
+xml:		http://www.w3.org/XML/1998/namespace
+xsd:		http://www.w3.org/2001/XMLSchema#
+rdfs:		http://www.w3.org/2000/01/rdf-schema#
+
+[SourceDeclaration]
+sourceUri	datasource1
+connectionUrl	jdbc:mysql://localhost:3306/spotify_player
+username	root
+password	111
+driverClass	com.mysql.jdbc.Driver
+
+[MappingDeclaration] @collection [[
+mappingId	urn:MAPID-8f25c6aef55646009bb3ecc8a08cf10c
+target		:Music-{id} a :Music ; :musicName {name} ; :musicDuration {duration} . 
+source		select id, name, duration from music
+
+mappingId	urn:MAPID-07e820f17ec8423eb14b17858504178d
+target		:Singer-{id} a :Singer ; :singerName {name} ; :singerBiography {biography} . 
+source		select id, name, biography from singer
+
+mappingId	urn:MAPID-0b6498704265493c94ca0388a457e4fe
+target		:Singer-{singer_id} :performed :Music-{music_id} . 
+source		select singer_id, music_id from musictosinger
+]]
+

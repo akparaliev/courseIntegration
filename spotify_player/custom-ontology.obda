@@ -1,0 +1,29 @@
+[PrefixDeclaration]
+:		http://www.semanticweb.org/tema/ontologies/2018/11/custom-ontology#
+owl:		http://www.w3.org/2002/07/owl#
+rdf:		http://www.w3.org/1999/02/22-rdf-syntax-ns#
+xml:		http://www.w3.org/XML/1998/namespace
+xsd:		http://www.w3.org/2001/XMLSchema#
+rdfs:		http://www.w3.org/2000/01/rdf-schema#
+
+[SourceDeclaration]
+sourceUri	datasource1
+connectionUrl	jdbc:mysql://localhost:3307/custom_player
+username	root
+password	111
+driverClass	com.mysql.jdbc.Driver
+
+[MappingDeclaration] @collection [[
+mappingId	urn:MAPID-e667384a531743d39bf410a0751757d5
+target		:Music-{id} a :Music ; :musicName {title} . 
+source		select id, title from song
+
+mappingId	urn:MAPID-b4b7dacb71994f559ba49faa57a794b5
+target		:Album-{id} a :Album ; :albumName {title} ; :albumCreationYear {creation_year} . 
+source		select id, title, creation_year from album
+
+mappingId	urn:MAPID-32882a06514846baae802a0108d06b4b
+target		:Album-{album_id} :contains :Music-{id} . 
+source		select album_id, id from song
+]]
+

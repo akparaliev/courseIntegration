@@ -1,0 +1,28 @@
+USE spotify_player;
+SET NAMES 'utf8';
+CREATE TABLE music (
+	id INT AUTO_INCREMENT,
+	name VARCHAR(256) NOT NULL,
+	duration INT NOT NULL,
+	PRIMARY KEY(id)
+) DEFAULT CHARSET=utf8;
+CREATE TABLE singer (
+	id INT AUTO_INCREMENT,
+	name VARCHAR(64) NOT NULL,
+	biography VARCHAR(256),
+	PRIMARY KEY(id)
+) DEFAULT CHARSET=utf8;
+CREATE TABLE musictosinger (
+	link_id INT AUTO_INCREMENT,
+	music_id INT NOT NULL,
+	singer_id INT NOT NULL,
+	PRIMARY KEY (link_id),
+	FOREIGN KEY (music_id)
+		REFERENCES music(id)
+		ON DELETE CASCADE,
+	FOREIGN KEY (singer_id)
+		REFERENCES singer(id)
+		ON DELETE CASCADE
+) DEFAULT CHARSET=utf8;
+
+

@@ -44,6 +44,39 @@
 - Class Name: com.mysql.jdbc.Driver,
 - Driver File (jar): /путь/до/файла/драйвера
 - Последний шаг: настроить рабочее пространство. Window -> Tabs -> Ontop Mappings и Window -> Tabs -> Ontop SPARQL
+## Пример маппингов 
+```javascript
+[MappingDeclaration] @collection [[
+mappingId	urn:MAPID-b9a528b16b994750b5b109cedc765cb8
+target		:Music-{id} a :Music ; :name {title} . 
+source		select id, title from song
+
+mappingId	urn:MAPID-b82991499ac64055b56e55b8505b96ce
+target		:Album-{id} a :Album ; :AlbumName {name} ; :CreationYear {creation_year} . 
+source		select id, title, creation_year from album
+
+mappingId	urn:MAPID-a4f965f34ea6487586d15fc45a9c2258
+target		:Album-{album_id} :contains :Music-{id} . 
+source		select album_id, id from song
+]]
+
+[MappingDeclaration] @collection [[
+mappingId	urn:MAPID-b5e528b16b994750b5b109cedc765cb8
+target		:Music-{id} a :Music ; :name {name} ; :duration {duration} . 
+source		select id, name, duration from music
+
+mappingId	urn:MAPID-b82991499ac64055b56e55b8505b96ce
+target		:Singer-{id} a :Singer ; :SingerName {name} ; :biography {biography} . 
+source		select id, name, biography from singer
+
+mappingId	urn:MAPID-a4f965f34ea6487586d15fc45a9c2258
+target		:Singer-{singer_id} :perfomed :Music-{music_id} . 
+source		select singer_id, music_id from musictosinger
+]]
+
+```
+
+
 
 ## Запуск и тестирование
 Файлы с маппингами и онтологиями прилагаются. Для того, чтобы всё заработало, откройте в Protege файл `spotify_player.owl`. В рабочем пространстве перейдите на вкладку `Ontop Mappings -> Datasource manager` и проверьте, что все поля заполнены:

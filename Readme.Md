@@ -46,9 +46,9 @@
 - Последний шаг: настроить рабочее пространство. Window -> Tabs -> Ontop Mappings и Window -> Tabs -> Ontop SPARQL
 
 ## Запуск и тестирование
-Файлы с маппингами и онтологиями прилагаются. Для того, чтобы всё заработало, откройте в Protege файл `library_ont.owl`. В рабочем пространстве перейдите на вкладку `Ontop Mappings -> Datasource manager` и проверьте, что все поля заполнены:
+Файлы с маппингами и онтологиями прилагаются. Для того, чтобы всё заработало, откройте в Protege файл `spotify_player.owl`. В рабочем пространстве перейдите на вкладку `Ontop Mappings -> Datasource manager` и проверьте, что все поля заполнены:
 ```
-   Connection URL: jdbc:mysql://localhost/simple_library`
+   Connection URL: jdbc:mysql://localhost/spotify_player`
    Database User: root`
    Database Password: 111`
    Driver class: com.mysql.jdbc.Driver`
@@ -59,13 +59,11 @@
 После успешного запуска `reasoner'а` можно проверить работоспособность системы. Для этого перейдите на вкладку `Ontop SPARQL` и в поле `Query Editor` введите любой `SPARQL`-запрос, например:
 
 ```javascript
-PREFIX : <http://www.semanticweb.org/dis/library-ontology#>
+PREFIX : <http://www.semanticweb.org/tema/ontologies/2018/11/spotify-ontology#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
-select ?name where { 
-   ?person rdf:type :Person .
-   ?person :firstName ?name .
-}
+USE spotify_player;
+SELECT * FROM song;
 ```
 
 
